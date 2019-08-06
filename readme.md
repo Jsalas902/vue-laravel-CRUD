@@ -1,7 +1,7 @@
 # Simple CRUD usando Laravel y VueJS
 _usando Vue Componentes, Laravel Mix (Webpack), Axios, y NPM._
 
-![screensot demo](img/screenshot-demo.png "Screenshot Demo")
+![screensot demo](public/img/screenshot-demo.png "Screenshot Demo")
 
 ## Construido con 🛠️
 
