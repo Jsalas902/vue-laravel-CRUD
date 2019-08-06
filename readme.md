@@ -1,7 +1,7 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
-
 # Simple CRUD usando Laravel y VueJS
 _usando Vue Componentes, Laravel Mix (Webpack), Axios, y NPM._
+
+![screensot demo](img/screenshot-demo.png "Screenshot Demo")
 
 ## Construido con 🛠️
 
