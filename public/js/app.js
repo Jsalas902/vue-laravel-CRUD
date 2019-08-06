@@ -1726,13 +1726,17 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     newThought: function newThought() {
-      var thought = {
-        id: 2,
-        description: this.description,
-        created_at: '04/08/2019'
+      var _this = this;
+
+      var params = {
+        description: this.description
       };
-      this.$emit('new', thought);
       this.description = '';
+      axios.post('/thoughts', params).then(function (response) {
+        var thought = response.data;
+
+        _this.$emit('new', thought);
+      });
     }
   }
 });
@@ -1769,15 +1773,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      thoughts: [{
-        'id': 1,
-        'description': 'abc',
-        'created_at': '03/08/2019'
-      }]
+      thoughts: []
     };
   },
   mounted: function mounted() {
-    console.log('Component mounted.');
+    var _this = this;
+
+    axios.get('/thoughts').then(function (response) {
+      _this.thoughts = response.data;
+    });
   },
   methods: {
     addThought: function addThought(thought) {
@@ -1842,11 +1846,24 @@ __webpack_require__.r(__webpack_exports__);
       this.editMode = true;
     },
     onClickUpdate: function onClickUpdate() {
-      this.editMode = false;
-      this.$emit('update', thought);
+      var _this = this;
+
+      var params = {
+        description: this.thought.description
+      };
+      axios.put("/thoughts/".concat(this.thought.id), params).then(function (response) {
+        _this.editMode = false;
+        var thought = response.data;
+
+        _this.$emit('update', thought);
+      });
     },
     onClickDelete: function onClickDelete() {
-      this.$emit('delete');
+      var _this2 = this;
+
+      axios["delete"]("/thoughts/".concat(this.thought.id)).then(function () {
+        _this2.$emit('delete');
+      });
     }
   }
 });
@@ -37281,7 +37298,12 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "card mt-4" }, [
     _c("div", { staticClass: "card-header" }, [
-      _vm._v("Publicado en " + _vm._s(_vm.thought.created_at))
+      _vm._v(
+        "Publicado en " +
+          _vm._s(_vm.thought.created_at) +
+          " - Ultima actualización " +
+          _vm._s(_vm.thought.updated_at)
+      )
     ]),
     _vm._v(" "),
     _c(
